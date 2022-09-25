@@ -10,3 +10,4 @@ app.get('/', (_request, response) => {
 });
 
 app.listen(port, () => console.log('ouvindo porta', port));
+//iniciando o projeto blogs api
