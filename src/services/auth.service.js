@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const tokenGenerator = require('../utils/JWT');
+const JWT = require('../utils/JWT');
 const validation = require('../validations/auth.validation');
 
 const auth = async ({ email, password }) => {
@@ -11,7 +11,7 @@ const auth = async ({ email, password }) => {
 
   validation.validationUserExists(user);
 
-  const token = tokenGenerator(user.dataValues);
+  const token = JWT.tokenGenerator(user.dataValues);
 
   return token;
 };
