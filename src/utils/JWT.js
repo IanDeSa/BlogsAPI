@@ -6,7 +6,7 @@ const tokenGenerator = (payload) => jwt.sign(payload, process.env.JWT_SECRET, jw
 
 const tokenValidation = async (token) => {
   if (!token) {
-    const e = new Error('Missing auth token');
+    const e = new Error('Token not found');
     e.status = 401;
     throw e;
   }
@@ -15,7 +15,7 @@ const tokenValidation = async (token) => {
     const introspection = await jwt.verify(token, process.env.JWT_SECRET, jwtConfig);
     return introspection;
   } catch (e) {
-    const err = new Error('Invalide auth token');
+    const err = new Error('Expired or invalid token');
     err.status = 401;
     throw err;
   }
