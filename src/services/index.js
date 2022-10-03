@@ -1,3 +1,7 @@
 const auth = require('./auth.service');
+const user = require('./user.service');
 
-module.exports = auth;
+module.exports = {
+  auth,
+  user,
+};
