@@ -12,7 +12,7 @@ const tokenValidation = async (token) => {
   }
 
   try {
-    const introspection = await jwt.verify(token, process.env.JWT_SECRET, jwtConfig);
+    const introspection = await jwt.verify(token, process.env.JWT_SECRET);
     return introspection;
   } catch (e) {
     const err = new Error('Expired or invalid token');
