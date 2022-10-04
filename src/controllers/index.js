@@ -1,7 +1,11 @@
 const auth = require('./auth.controller');
-const addUser = require('./user.controller');
+const user = require('./user.controller');
+const category = require('./category.controller');
+const post = require('./post.controller');
 
 module.exports = {
   auth,
-  addUser,
+  user,
+  category,
+  post,
 };
