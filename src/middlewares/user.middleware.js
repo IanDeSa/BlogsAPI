@@ -5,7 +5,7 @@ const user = (req, _res, next) => {
 
   if (error) {
     const e = new Error(error.message);
-    e.status = error.status;
+    e.status = 400;
     throw e;
   }
 
