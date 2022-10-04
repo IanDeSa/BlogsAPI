@@ -10,9 +10,11 @@ const getAll = async (_req, res) => {
   return res.status(200).json(users);
 };
 
-const getByPk = async (id) => {
+const getByPk = async (req, res) => {
+  const { id } = req.params;
   const user = await service.getByPk(id);
-  return user;
+  return ((user === null) 
+  ? res.status(404).json({ message: 'User does not exist' }) : res.status(200).json(user));
 };
 
 module.exports = {
