@@ -14,7 +14,7 @@ const BlogPostSchema = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER,
       references: {
         model: "users",
@@ -27,11 +27,16 @@ const BlogPostSchema = (sequelize, DataTypes) => {
     updated: {
       type: DataTypes.DATE,
     },
+  },
+  {
+    tableName: 'blog_posts',
+    underscored: true,
+    timestamps: false,
   });
 
   BlogPostTable.associate = (models) => {
     BlogPostTable.belongsTo(models.User, {
-      foreignKey: 'user_id',
+      foreignKey: 'userId',
       as: 'user',
     })
   }
