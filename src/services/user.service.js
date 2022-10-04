@@ -1,13 +1,13 @@
 const { User } = require('../models');
 const JWT = require('../utils/JWT');
-const validation = require('../validations/user.validation');
+const { validationUserCreated } = require('../validations/user.validation');
 
 const addUser = async ({ displayName, email, password, image = '' }) => {
   const user = await User.findOne({
     where: { email },
   });
 
-  validation.validationUserCreated(user);
+  validationUserCreated(user);
 
   const newUser = await User.create({ displayName, email, password, image });
 
@@ -20,7 +20,16 @@ const getAll = async () => {
   return users;
 };
 
+const getByPk = async (id) => {
+  const user = await User.findOne({
+    where: { id },
+    attributes: { exclude: ['password'] },
+  });
+  return user;
+};
+
 module.exports = {
   addUser,
   getAll,
+  getByPk,
 };
