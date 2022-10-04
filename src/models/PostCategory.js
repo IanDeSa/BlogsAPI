@@ -1,7 +1,13 @@
 const PostCategorySchema = (sequelize, DataTypes) => {
   const PostCategoryTable = sequelize.define('PostCategory', {
-    categoryId: DataTypes.INTEGER,
-    postId: DataTypes.INTEGER,
+    categoryId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
+    postId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
   },
   {
     tableName: 'posts_categories',
@@ -13,14 +19,14 @@ const PostCategorySchema = (sequelize, DataTypes) => {
     models.BlogPost.belongsToMany(models.Category, {
       as: 'categories',
       through: PostCategoryTable,
-      foreignKey: 'post_id',
-      otherKey: 'category_id'
+      foreignKey: 'postId',
+      otherKey: 'categoryId'
     });
     models.Category.belongsToMany(models.BlogPost, {
-      as: 'blogPosts',
+      as: 'blog_posts',
       through: PostCategoryTable,
-      foreignKey: 'category_id',
-      otherKey: 'post_id'
+      foreignKey: 'categoryId',
+      otherKey: 'postId'
     });
   };
   return PostCategoryTable;
