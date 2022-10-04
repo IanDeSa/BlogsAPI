@@ -8,8 +8,9 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      display_name: {
-        type: Sequelize.STRING
+      displayName: {
+        type: Sequelize.STRING,
+        field: 'display_name'
       },
       email: {
         type: Sequelize.STRING,
