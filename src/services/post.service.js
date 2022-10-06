@@ -1,6 +1,17 @@
-const { BlogPost, User, Category } = require('../models');
+const { BlogPost, User, Category, PostCategory } = require('../models');
+const { validationCategoryIds } = require('../validations/post.validation');
 
-const createPost = async () => {};
+const addPost = async ({ title, content, categoryIds }, id) => {
+  if (await validationCategoryIds(categoryIds)) {
+    const post = await BlogPost.create({ title, content, userId: id });
+    await categoryIds.map((categoryId) => PostCategory.create({
+      postId: post.id,
+      categoryId,
+    }));
+  return post;
+  } 
+  return null;
+};
 
 const getAll = async () => {
   const posts = await BlogPost.findAll({
@@ -24,7 +35,7 @@ const getByPk = async (id) => {
 };
 
 module.exports = {
-  createPost,
+  addPost,
   getAll,
   getByPk,
 };
