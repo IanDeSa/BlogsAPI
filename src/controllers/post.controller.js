@@ -1,24 +1,28 @@
-const service = require('../services/post.service');
+const service = require('../services');
+const JWT = require('../utils/JWT');
 
-const createPost = async (req, res) => {
-  const post = await service.createPost(req.body);
-  return res.status(201).json({ post });
+const addPost = async (req, res) => {
+  const token = req.headers.authorization;
+  const { id } = await JWT.tokenValidation(token);
+  const post = await service.post.addPost(req.body, id);
+  return ((post === null) 
+  ? res.status(400).json({ message: '"categoryIds" not found' }) : res.status(201).json(post));
 };
 
 const getAll = async (_req, res) => {
-  const posts = await service.getAll();
+  const posts = await service.post.getAll();
   return res.status(200).json(posts);
 };
 
 const getByPk = async (req, res) => {
   const { id } = req.params;
-  const post = await service.getByPk(id);
+  const post = await service.post.getByPk(id);
   return ((post === null) 
   ? res.status(404).json({ message: 'Post does not exist' }) : res.status(200).json(post));
 };
 
 module.exports = {
-  createPost,
+  addPost,
   getAll,
   getByPk,
 };
