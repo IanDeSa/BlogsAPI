@@ -4,7 +4,7 @@ const middlewares = require('../middlewares');
 
 const router = express.Router();
 
-router.post('/', middlewares.authMiddleware, controller.createPost);
+router.post('/', middlewares.postMiddleware, middlewares.authMiddleware, controller.addPost);
 router.get('/', middlewares.authMiddleware, controller.getAll);
 router.get('/:id', middlewares.authMiddleware, controller.getByPk);
 
