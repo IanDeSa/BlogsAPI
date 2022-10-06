@@ -10,7 +10,15 @@ const getAll = async (_req, res) => {
   return res.status(200).json(categories);
 };
 
+const getByPk = async (req, res) => {
+  const { id } = req.params;
+  const category = await service.getByPk(id);
+  return ((category === null) 
+  ? res.status(404).json({ message: 'Category does not exist' }) : res.status(200).json(category));
+};
+
 module.exports = {
   addCategory,
   getAll,
+  getByPk,
 };
