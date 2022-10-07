@@ -21,8 +21,19 @@ const getByPk = async (req, res) => {
   ? res.status(404).json({ message: 'Post does not exist' }) : res.status(200).json(post));
 };
 
+const updated = async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const token = req.headers.authorization;
+  const user = await JWT.tokenValidation(token);
+  const post = await service.post.updated(title, content, id, user.id);
+  return ((post === null) 
+  ? res.status(401).json({ message: 'Unauthorized user' }) : res.status(200).json(post));
+};
+
 module.exports = {
   addPost,
   getAll,
   getByPk,
+  updated,
 };
