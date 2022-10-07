@@ -6,4 +6,12 @@ const postSchema = Joi.object({
   categoryIds: Joi.array().min(1).required(),
 });
 
-module.exports = postSchema;
+const UpdatedSchema = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
+module.exports = {
+  postSchema,
+  UpdatedSchema,
+};
