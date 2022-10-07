@@ -27,8 +27,22 @@ const updated = async (req, res) => {
   const token = req.headers.authorization;
   const user = await JWT.tokenValidation(token);
   const post = await service.post.updated(title, content, id, user.id);
-  return ((post === null) 
-  ? res.status(401).json({ message: 'Unauthorized user' }) : res.status(200).json(post));
+  return res.status(200).json(post);
+};
+
+const destroy = async (req, res) => {
+  const { id } = req.params;
+  const token = req.headers.authorization;
+  const user = await JWT.tokenValidation(token);
+  const post = await service.post.getByPk(id);
+  if (!post) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+  if (user.id !== post.userId) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  await service.post.destroy(id, user.id);
+  return res.status(204).end();
 };
 
 module.exports = {
@@ -36,4 +50,5 @@ module.exports = {
   getAll,
   getByPk,
   updated,
+  destroy,
 };
