@@ -9,5 +9,6 @@ router.get('/', middlewares.authMiddleware, controller.getAll);
 router.get('/:id', middlewares.authMiddleware, controller.getByPk);
 router
 .put('/:id', middlewares.authMiddleware, middlewares.postMiddleware.updated, controller.updated);
+router.delete('/:id', middlewares.authMiddleware, controller.destroy);
 
 module.exports = router;
