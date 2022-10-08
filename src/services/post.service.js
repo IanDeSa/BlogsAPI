@@ -34,13 +34,10 @@ const getByPk = async (id) => {
   return post;
 };
 
-const updated = async (title, content, id, userId) => {
+const updated = async (title, content, id) => {
   await BlogPost.update({ title, content }, { where: { id } });
   const post = await getByPk(id);
-  if (post.userId === userId) {
-    return post;
-  }
-  return null;
+  return post;
 };
 
 const destroy = async (id) => {

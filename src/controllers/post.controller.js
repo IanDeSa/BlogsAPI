@@ -26,8 +26,12 @@ const updated = async (req, res) => {
   const { title, content } = req.body;
   const token = req.headers.authorization;
   const user = await JWT.tokenValidation(token);
-  const post = await service.post.updated(title, content, id, user.id);
-  return res.status(200).json(post);
+  const post = await service.post.getByPk(id);
+  if (user.id !== post.userId) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  const update = await service.post.updated(title, content, id);
+  return res.status(200).json(update);
 };
 
 const destroy = async (req, res) => {
